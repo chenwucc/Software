@@ -62,11 +62,12 @@ def read_1file_l1(ifile):
 
     lp = (alltimes > 0)&(node != -127)
     lat,lon,alt,los,err,dir = lat[lp,:],lon[lp,:],alt[lp,:],los[lp,:],err[lp,:],dir[lp,:]
+    qflag = qflag[lp,:]
     alltimes,node = alltimes[lp],node[lp]
     alltimes = convert_to_datetime(alltimes)
 
     df = pd.DataFrame()
-    for i,it in enumerate(alltimes[0:-1]):
+    for i,it in enumerate(alltimes):
 
         df0 = pd.DataFrame()
 
@@ -76,9 +77,11 @@ def read_1file_l1(ifile):
         df0['dir'] = dir[i,:]
         df0['los'] = los[i,:]
         df0['err'] = err[i,:]
+        df0['qflag'] = qflag[i,:]
         indexNames = df0[(df0['los']==9.969209968386869e+36)|
                          (df0['err']==9.969209968386869e+36)].index
         df0.drop(indexNames,inplace=True)
+        df0 = df0[df0['qflag']==1]
         df0['node'] = node[i]
         df0['times'] = it
 
