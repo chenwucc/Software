@@ -512,7 +512,7 @@ def interp_prf(df):
             dfp = dfp.append(df_inp,ignore_index=True)
     return df_inp
 
-def dist_los_comp(year,doys):
+def process_1file(year,doys):
 
     ff = '/raid4/Data/Tidi/tidi.engin.umich.edu/los/2020/'
     savedir = './binprf/'
@@ -564,5 +564,5 @@ if __name__ == '__main__':
 
     doys = np.arange(241,242,1)
 
-    dist_los_comp(2020,doys)
+    process_1file(2020,doys)
 
